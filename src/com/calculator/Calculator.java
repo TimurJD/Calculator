@@ -21,4 +21,16 @@ public class Calculator {
 	public double doSubtraction(double firstNumber, double secondNumber) {
 		return firstNumber - secondNumber;
 	}
+
+	public int doMultiply(int firstNumber, int secondNumber) {
+		return firstNumber * secondNumber;
+	}
+	
+	public double doMultiply(double firstNumber, double secondNumber) {
+		return firstNumber * secondNumber;
+	}
+
+	public double doDivide(double firstNumber, double secondNumber) {
+		return firstNumber / secondNumber;
+	}
 }

@@ -86,4 +86,36 @@ public class CalculatorTest {
 		double secondNumber = -36.34;
 		assertEquals(expected, calculator.doSubtraction(firstNumber, secondNumber), 0);
 	}
+	
+	@Test
+	public void shouldReturnCorrectResult_whenMultiplyTwoIntegers() {
+		int expected = 100;
+		int firstNumber = 10;
+		int secondNumber = 10;
+		assertEquals(expected, calculator.doMultiply(firstNumber, secondNumber));
+	}
+	
+	@Test
+	public void shouldReturnCorrectResult_whenMultiplyTwoDoubles() {
+		double expected = 125.08;
+		double firstNumber = 23.6;
+		double secondNumber = 5.3;
+		assertEquals(expected, calculator.doMultiply(firstNumber, secondNumber), 0);
+	}
+	
+	@Test
+	public void shouldReturnCorrectResult_whenDivideTwoNumbers() {
+		double expected = 5;
+		double firstNumber = 15;
+		double secondNumber = 3;
+		assertEquals(expected, calculator.doDivide(firstNumber, secondNumber), 0);
+	}
+	
+	@Test
+	public void shouldReturnCorrectResult_whenDivide_whenFirstIntegerLessThanSecond() {
+		double expected = 0.1;
+		int firstNumber = 10;
+		int secondNumber = 100;
+		assertEquals(expected, calculator.doDivide(firstNumber, secondNumber), 0);
+	}
 }

@@ -23,9 +23,10 @@ import javax.swing.UnsupportedLookAndFeelException;
  */
 public class Calculator {
 	
-	private int firstValue;
-	private int secondValue;
-	
+	private double firstValue;
+	private double secondValue;
+	private double result;
+
 	private char operation;
 
 	private JButton button0;
@@ -181,7 +182,11 @@ public class Calculator {
 		buttonDot.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				textField.setText(textField.getText() + ".");
+				if (textField.getText().contains(".")) {
+					return;
+				} else {
+					textField.setText(textField.getText() + ".");
+				}
 			}
 		});
 		
@@ -203,21 +208,24 @@ public class Calculator {
 				new Insets(0, 3, 5, 5), GridBagConstraints.CENTER,
 				GridBagConstraints.BOTH);
 		buttonEqual.addActionListener(new ActionListener() {
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				secondValue = Integer.valueOf(textField.getText());
+				secondValue = Double.valueOf(textField.getText());
 				if(operation == '+') {
-					textField.setText(String.valueOf(doAddition(firstValue, secondValue)));
+					result = doAddition(firstValue, secondValue);
 				} else if (operation == '-') {
-					textField.setText(String.valueOf(doSubtraction(firstValue, secondValue)));
+					result = doSubtraction(firstValue, secondValue);
 				} else if (operation == '*') {
-					textField.setText(String.valueOf(doMultiply(firstValue, secondValue)));
+					result = doMultiply(firstValue, secondValue);
 				} else if (operation == '/') {
-					if (firstValue < secondValue) {
-						textField.setText(String.valueOf(doDivide((double) firstValue, (double) secondValue)));
-					} else {
-						textField.setText(String.valueOf(doDivide(firstValue, secondValue)));
-					}
+					result = doDivide(firstValue, secondValue);
+				} 
+				
+				if ((result % 2) == 0.0) {			
+					textField.setText(String.valueOf((int) result));
+				} else {
+					textField.setText(String.valueOf(result));
 				}
 				firstValue = 0;
 				secondValue = 0;
@@ -231,7 +239,7 @@ public class Calculator {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				operation = '+';
-				firstValue = Integer.valueOf(textField.getText());
+				firstValue = Double.valueOf(textField.getText());
 				textField.setText("");
 			}
 		});
@@ -244,7 +252,7 @@ public class Calculator {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				operation = '-';
-				firstValue = Integer.valueOf(textField.getText());
+				firstValue = Double.valueOf(textField.getText());
 				textField.setText("");
 			}
 		});
@@ -256,7 +264,7 @@ public class Calculator {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				operation = '*';
-				firstValue = Integer.valueOf(textField.getText());
+				firstValue = Double.valueOf(textField.getText());
 				textField.setText("");
 			}
 		});
@@ -269,7 +277,7 @@ public class Calculator {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				operation = '/';
-				firstValue = Integer.valueOf(textField.getText());
+				firstValue = Double.valueOf(textField.getText());
 				textField.setText("");
 			}
 		});
@@ -292,24 +300,12 @@ public class Calculator {
 				gridwidth, gridheight, 1.0, 1.0, anchor, fill, insets, 0, 0));
 	}
 
-	public int doAddition(int firstNumber, int secondNumber) {
-		return firstNumber + secondNumber;
-	}
-
 	public double doAddition(double firstNumber, double secondNumber) {
 		return firstNumber + secondNumber;
 	}
 
-	public int doSubtraction(int firstNumber, int secondNumber) {
-		return firstNumber - secondNumber;
-	}
-
 	public double doSubtraction(double firstNumber, double secondNumber) {
 		return firstNumber - secondNumber;
-	}
-
-	public int doMultiply(int firstNumber, int secondNumber) {
-		return firstNumber * secondNumber;
 	}
 
 	public double doMultiply(double firstNumber, double secondNumber) {
@@ -320,10 +316,6 @@ public class Calculator {
 		return firstNumber / secondNumber;
 	}
 	
-	public int doDivide(int firstNumber, int secondNumber) {
-		return firstNumber / secondNumber;
-	}
-
 	public static void main(String[] args) throws ClassNotFoundException,
 			InstantiationException, IllegalAccessException,
 			UnsupportedLookAndFeelException {

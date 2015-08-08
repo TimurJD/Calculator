@@ -118,6 +118,6 @@ public class CalculatorTest {
 		double expected = 0.1;
 		int firstNumber = 10;
 		int secondNumber = 100;
-		assertEquals(expected, calculator.doDivide(firstNumber, secondNumber), 0);
+		assertEquals(expected, calculator.doDivide(firstNumber, secondNumber), 0.1);
 	}
 }

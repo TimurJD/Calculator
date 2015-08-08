@@ -22,6 +22,11 @@ import javax.swing.UnsupportedLookAndFeelException;
  * @since 10.07.2015
  */
 public class Calculator {
+	
+	private int firstValue;
+	private int secondValue;
+	
+	private char operation;
 
 	private JButton button0;
 	private JButton button1;
@@ -187,6 +192,8 @@ public class Calculator {
 		buttonClear.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				firstValue = 0;
+				secondValue = 0;
 				textField.setText("");
 			}
 		});
@@ -198,6 +205,22 @@ public class Calculator {
 		buttonEqual.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				secondValue = Integer.valueOf(textField.getText());
+				if(operation == '+') {
+					textField.setText(String.valueOf(doAddition(firstValue, secondValue)));
+				} else if (operation == '-') {
+					textField.setText(String.valueOf(doSubtraction(firstValue, secondValue)));
+				} else if (operation == '*') {
+					textField.setText(String.valueOf(doMultiply(firstValue, secondValue)));
+				} else if (operation == '/') {
+					if (firstValue < secondValue) {
+						textField.setText(String.valueOf(doDivide((double) firstValue, (double) secondValue)));
+					} else {
+						textField.setText(String.valueOf(doDivide(firstValue, secondValue)));
+					}
+				}
+				firstValue = 0;
+				secondValue = 0;
 			}
 		});
 
@@ -207,6 +230,9 @@ public class Calculator {
 		buttonPlus.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				operation = '+';
+				firstValue = Integer.valueOf(textField.getText());
+				textField.setText("");
 			}
 		});
 
@@ -217,6 +243,9 @@ public class Calculator {
 		buttonMinus.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				operation = '-';
+				firstValue = Integer.valueOf(textField.getText());
+				textField.setText("");
 			}
 		});
 
@@ -226,6 +255,9 @@ public class Calculator {
 		buttonMultiply.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				operation = '*';
+				firstValue = Integer.valueOf(textField.getText());
+				textField.setText("");
 			}
 		});
 
@@ -236,6 +268,9 @@ public class Calculator {
 		buttonDivide.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				operation = '/';
+				firstValue = Integer.valueOf(textField.getText());
+				textField.setText("");
 			}
 		});
 	}
@@ -282,6 +317,10 @@ public class Calculator {
 	}
 
 	public double doDivide(double firstNumber, double secondNumber) {
+		return firstNumber / secondNumber;
+	}
+	
+	public int doDivide(int firstNumber, int secondNumber) {
 		return firstNumber / secondNumber;
 	}
 

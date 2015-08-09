@@ -218,11 +218,19 @@ public class Calculator {
 					result = doSubtraction(firstValue, secondValue);
 				} else if (operation == '*') {
 					result = doMultiply(firstValue, secondValue);
-				} else if (operation == '/') {
+				} else if (operation == '/') {					
 					result = doDivide(firstValue, secondValue);
-				} 
+				}
 				
-				if ((result % 2) == 0.0) {			
+				if (Double.isInfinite(result)) {
+					textField.setText("Don't divide by zero!");
+					return;
+				} else if (Double.isNaN(result)) {
+					textField.setText("Don't divide by zero by zero!");
+					return;
+				}
+				
+				if ((result % 2) == 0.0) {
 					textField.setText(String.valueOf((int) result));
 				} else {
 					textField.setText(String.valueOf(result));

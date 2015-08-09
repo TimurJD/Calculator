@@ -27,7 +27,7 @@ public class Calculator {
 	private double secondValue;
 	private double result;
 
-	private char operation;
+	private Operation operation;
 
 	private JButton button0;
 	private JButton button1;
@@ -212,16 +212,24 @@ public class Calculator {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				secondValue = Double.valueOf(textField.getText());
-				if(operation == '+') {
-					result = doAddition(firstValue, secondValue);
-				} else if (operation == '-') {
-					result = doSubtraction(firstValue, secondValue);
-				} else if (operation == '*') {
-					result = doMultiply(firstValue, secondValue);
-				} else if (operation == '/') {					
-					result = doDivide(firstValue, secondValue);
-				}
 				
+				switch (operation) {
+				case ADDITION:
+					result = doAddition(firstValue, secondValue);
+					break;
+				case SUBTRACTION:					
+					result = doSubtraction(firstValue, secondValue);
+					break;
+				case MULTIPLY:					
+					result = doMultiply(firstValue, secondValue);
+					break;
+				case DIVIDE:					
+					result = doDivide(firstValue, secondValue);
+					break;
+				default:
+					break;		
+				}
+
 				if (Double.isInfinite(result)) {
 					textField.setText("Don't divide by zero!");
 					return;
@@ -230,7 +238,7 @@ public class Calculator {
 					return;
 				}
 				
-				if ((result % 2) == 0.0) {
+				if ((result % 2) == 0.0 || (result % 2) == 1.0) {
 					textField.setText(String.valueOf((int) result));
 				} else {
 					textField.setText(String.valueOf(result));
@@ -246,7 +254,7 @@ public class Calculator {
 		buttonPlus.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				operation = '+';
+				operation = Operation.ADDITION;
 				firstValue = Double.valueOf(textField.getText());
 				textField.setText("");
 			}
@@ -259,7 +267,7 @@ public class Calculator {
 		buttonMinus.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				operation = '-';
+				operation = Operation.SUBTRACTION;
 				firstValue = Double.valueOf(textField.getText());
 				textField.setText("");
 			}
@@ -271,7 +279,7 @@ public class Calculator {
 		buttonMultiply.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				operation = '*';
+				operation = Operation.MULTIPLY;
 				firstValue = Double.valueOf(textField.getText());
 				textField.setText("");
 			}
@@ -284,7 +292,7 @@ public class Calculator {
 		buttonDivide.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				operation = '/';
+				operation = Operation.DIVIDE;
 				firstValue = Double.valueOf(textField.getText());
 				textField.setText("");
 			}
@@ -323,7 +331,6 @@ public class Calculator {
 	public double doDivide(double firstNumber, double secondNumber) {
 		return firstNumber / secondNumber;
 	}
-	
 	public static void main(String[] args) throws ClassNotFoundException,
 			InstantiationException, IllegalAccessException,
 			UnsupportedLookAndFeelException {

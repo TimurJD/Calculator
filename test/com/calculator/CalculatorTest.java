@@ -6,18 +6,19 @@ package com.calculator;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import javax.swing.UnsupportedLookAndFeelException;
-
 import org.junit.Before;
 import org.junit.Test;
 
+import com.calculator.model.Calculable;
+import com.calculator.model.MathOperator;
+
 public class CalculatorTest {
 
-	private Calculator calculator;
+	private Calculable calculator;
 	
 	@Before
-	public void setUp() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
-		calculator = new Calculator();
+	public void setUp() {
+		calculator = new MathOperator();
 	}
 	
 	@Test

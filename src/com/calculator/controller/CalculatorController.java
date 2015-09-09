@@ -47,7 +47,7 @@ public class CalculatorController {
 	class DotListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent event) {
-			if (view.getTextField().getText().contains(".")) {
+			if (view.getText().contains(".")) {
 				return;
 			} else {
 				view.updateTextField(((JButton) event.getSource()).getText());
@@ -65,7 +65,7 @@ public class CalculatorController {
 	}
 
 	private void mathOperation(Operation operation) {
-		String input = view.getTextField().getText();
+		String input = view.getText();
 		if ("".equals(input)) {
 			return;
 		} else {
@@ -106,7 +106,7 @@ public class CalculatorController {
 	class EqualListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent event) {
-			String input = view.getTextField().getText();
+			String input = view.getText();
 
 			if ("".equals(input) || operation == null) {
 				return;
@@ -127,24 +127,28 @@ public class CalculatorController {
 					break;
 				default:
 					break;
-				}
+				}				
 				
 				if (Double.isInfinite(result)) {
-					view.getTextField().setText("Don't divide by zero!");
+					view.clearTextField();
+					view.updateTextField("Don't divide by zero!");
 					return;
 				} else if (Double.isNaN(result)) {
-					view.getTextField()
-							.setText("Don't divide by zero by zero!");
+					view.clearTextField();
+					view.updateTextField("Don't divide by zero by zero!");
 					return;
 				}
 
 				if ((result % 2) == 0.0 || (result % 2) == 1.0) {
-					view.getTextField().setText(String.valueOf((int) result));
+					view.clearTextField();
+					view.updateTextField(String.valueOf((int) result));
 				} else {
-					view.getTextField().setText(String.valueOf(result));
+					view.clearTextField();
+					view.updateTextField(String.valueOf(result));
 				}
-//				firstValue = 0;
-//				secondValue = 0;
+				
+				firstValue = 0;
+				secondValue = 0;
 			}
 
 		}

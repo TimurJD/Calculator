@@ -183,7 +183,7 @@ public class CalculatorView {
 		textField.setText("");
 	}
 
-	public JTextField getTextField() {
-		return textField;
+	public String getText() {
+		return textField.getText();
 	}
 }
